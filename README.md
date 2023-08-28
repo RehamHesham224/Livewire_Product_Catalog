@@ -6,6 +6,8 @@ dynamic interactions, roles and permissions for access control, custom validatio
 robust exception handling. The project aims to deliver a high-quality, feature-rich online shopping
 experience while adhering to best coding practices.
 
+[Slides for project functionality details](https://github.com/RehamHesham224/Product_Catalog/blob/main/Product%20Catalog.pptx)
+
 ### Requirements
 
 1. User Authentication with Roles:
