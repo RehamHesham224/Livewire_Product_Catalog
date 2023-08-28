@@ -31,8 +31,11 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::middleware('auth')->group(function(){
-    Route::get('/',Products::class)->name('products.index');
-    Route::get('/products/{product}',ProductDetails::class)->name('products.show');
+    Route::get('/',function(){
+        return redirect('/products');
+    });
+    Route::get('/products',Products::class)->name('products.index');
+    Route::get('/products/{productId}',ProductDetails::class)->name('products.show');
 
     Route::get('/cart',CartPage::class)->name('cart.index');
 });

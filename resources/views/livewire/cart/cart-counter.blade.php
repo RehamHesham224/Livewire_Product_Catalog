@@ -1,4 +1,5 @@
 <div>
-    Cart ( {{$cart_count}} )
+    <a href="{{route('cart.index')}}">Cart ( {{$cart_count}} )</a>
+
 </div>
 

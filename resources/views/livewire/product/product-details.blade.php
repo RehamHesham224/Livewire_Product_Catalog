@@ -1,24 +1,20 @@
-
-    <div class="flex justify-center">
+<div class="flex justify-center">
         <div class="rounded overflow-hidden border w-full lg:w-6/12 md:w-6/12 bg-white mx-3 md:mx-0 lg:mx-0">
             <div class="w-full flex justify-between p-3">
                 <div class="flex">
+{{--                    {{$product->id}}--}}
                     <h1 class="pt-1 ml-2 font-bold text-lg">{{$product->name}}</h1>
                 </div>
                 <span class="px-2 hover:bg-gray-300 cursor-pointer rounded"><i class="fas fa-ellipsis-h pt-2 text-lg"></i></span>
             </div>
             <div>
                 @if ($product->image)
-                    <img class="w-full bg-cover" src="{{$product->image}}">
-                @else
+                    <img class="w-full bg-cover" src="{{ asset('storage/app/public/images/' . $product->image) }}" />
+                   @else
                     <img class="w-full bg-cover " src="https://3.bp.blogspot.com/-Chu20FDi9Ek/WoOD-ehQ29I/AAAAAAAAK7U/mc4CAiTYOY8VzOFzBKdR52aLRiyjqu0MwCLcBGAs/s1600/DSC04596%2B%25282%2529.JPG">
                 @endif
             </div>
             <div class="px-3 pb-2">
-{{--                <div class="pt-2">--}}
-{{--                    <i class="far fa-heart cursor-pointer"></i>--}}
-{{--                    <span class="text-sm text-gray-400 font-medium">12 likes</span>--}}
-{{--                </div>--}}
                 <div class="flex justify-between">
                     <div class="pt-1">
                         <div class="mb-2 text-sm">
@@ -31,9 +27,20 @@
                         </div>
                     </div>
                 </div>
-                @livewire('cart.add-to-cart',['productId' => $product->id, 'cartCount' => $cartCount])
+                <div class="my-3">
+                    <button
+                        class="inline-flex my-4 py-2 px-4 font-semibold rounded-sm focus:outline-none focus-visible:ring
+                    @if($cartCount > 0)
+                        bg-gray-500 text-white disabled:opacity-25 di
+                    @else
+                        bg-blue-500 text-white
+                    @endif"
+                        wire:click="addToCart({{$product->id}})"
+                    >
+                        {{ $cartCount > 0 ? 'In Cart' : 'Add To Cart' }}
+                    </button>
+                </div>
 
-{{--                <div class="text-sm mb-2 text-gray-400 cursor-pointer font-medium">View all 14 comments</div>--}}
                 <form wire:submit.prevent="submitReview" class="mt-8">
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-semibold mb-2">Write your review:</label>

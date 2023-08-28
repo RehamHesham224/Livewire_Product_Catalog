@@ -18,7 +18,7 @@
             <div class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">
                 @foreach ($products as $product)
                     <div class="lg:flex">
-                        <a href="{{route('products.show', ['product'=>$product->id])}}">
+                        <a href="{{route('products.show', ['productId'=>$product->id])}}">
                             @if(!empty($product->image))
                                 <img src="{{asset('storage/'.$product->image)}}" alt="">
                             @else

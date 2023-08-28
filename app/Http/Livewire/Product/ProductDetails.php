@@ -9,20 +9,37 @@ use Livewire\Component;
 
 class ProductDetails extends Component
 {
-    protected $listeners=['reviewAdded'=>'reviewUpdated'];
+    protected $listeners=[
+        'reviewAdded'=>'reviewUpdated',
+        'productAdded'=>'$refresh'
+    ];
     public $product;
     public $cartCount;
     public $reviewText;
     public $rating;
     public $productId;
-    public function mount($product){
-        $this->productId=$product;
-        $this->product=Product::findOrFail($product)->with('reviews')->first();
-        $this->cartCount=\Cart::session(Auth::id())->getContent()->where('id',$this->product->id)->count();
+    public function mount($productId)
+    {
+        $this->productId = $productId;
+        $this->product = Product::find($this->productId);
     }
     public function render()
     {
+        $this->cartCount = \Cart::session(Auth::id())->getContent()->where('id', $this->product->id)->sum('quantity');
         return view('livewire.product.product-details');
+    }
+
+    public function addToCart(){
+        $product=Product::findOrFail($this->productId);
+        \Cart::session(Auth::id())->add(array(
+            'id' => $product->id,
+            'name' => $product->name,
+            'price' => $product->price,
+            'quantity' => 1,
+            'attributes' => array(),
+            'associatedModel' => $product
+        ));
+        $this->emit('productAdded');
     }
 
 
@@ -49,6 +66,7 @@ class ProductDetails extends Component
         $this->emit('reviewAdded');
     }
     public function reviewUpdated(){
-        $this->product=Product::findOrFail($this->productId)->with('reviews')->first();
+        $this->product=Product::findOrFail($this->product->id);
     }
+
 }

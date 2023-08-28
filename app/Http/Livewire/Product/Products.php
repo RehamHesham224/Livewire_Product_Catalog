@@ -17,7 +17,6 @@ class Products extends Component
     protected $updatesQueryString = ['search'];
     protected $cart;
     public $sql;
-
     public $perPage = 2;
 
     public function loadMore()
@@ -26,11 +25,9 @@ class Products extends Component
     }
     public function mount()
     {
-        $this->cart=\Cart::session(Auth::id())->getContent();
         $this->search = request()->query('search', $this->search);
         $this->category = request()->query('category', $this->category);
     }
-
     public function render()
     {
         $categories=Category::all();
@@ -46,9 +43,7 @@ class Products extends Component
                 $q->where('name', 'like', '%' . $this->category . '%');
             });
         }
-
         $products = $query->paginate($this->perPage);
-
 
         return view('livewire.product.products', [
             'products' => $products,
