@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Livewire\Cart\CartPage;
 use App\Http\Livewire\Product\ProductDetails;
 use App\Http\Livewire\Product\Products;
 use Illuminate\Support\Facades\Route;
@@ -28,9 +29,10 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
-require __DIR__.'/cart.php';
 
+Route::middleware('auth')->group(function(){
+    Route::get('/',Products::class)->name('products.index');
+    Route::get('/products/{product}',ProductDetails::class)->name('products.show');
 
-//Route::resource('/products',ProductController::class)->only(['index','show']);
-Route::get('/',Products::class)->name('products.index');
-Route::get('/products/{product}',ProductDetails::class)->name('products.show');
+    Route::get('/cart',CartPage::class)->name('cart.index');
+});
