@@ -40,4 +40,4 @@ experience while adhering to best coding practices.
 - Filament Admin Panel 
 - Permission Package: Spatie 
 - Media Library: Spatie
-- Tailwind css
+- Tailwind CSS
